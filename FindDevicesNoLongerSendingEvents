@@ -1,0 +1,8 @@
+//Find devices that have stopped sending network events over the last 15 days, retrieve last event time and calculate the days since last event
+
+DeviceNetworkEvents
+| where Timestamp > ago(30d)
+| summarize arg_max(Timestamp, DeviceName) by DeviceName
+| project DeviceName, ['Days Since Last Event'] = datetime_diff('day', now(), Timestamp), ['Last Event Time']=Timestamp
+| where ['Days Since Last Event'] > 15 // ignore upto 15 days as people could be on holidays etc.
+| sort by ['Days Since Last Event'] desc   
