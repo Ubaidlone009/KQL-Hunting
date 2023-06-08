@@ -1,4 +1,4 @@
-//Find devices that have stopped sending network events over the last 15 days, retrieve last event time and calculate the days since last event
+#Find devices that have stopped sending network events over the last 15 days, retrieve last event time and calculate the days since last event
 
 DeviceNetworkEvents
 | where Timestamp > ago(30d)
